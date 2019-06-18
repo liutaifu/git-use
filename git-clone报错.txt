@@ -1,0 +1,12 @@
+1、Unable to negotiate with 192.168.0.192 port 29419: no matching key exchange method found. 
+   Their offer: diffie-hellman-group1-sha1
+原因分析：分析之后发现是git server和client使用的ssh key解析算法不一致造成的，client因为系统
+		  升级的原因默认使用新的key exchange method而服务器只提供diffie-hellman-group1-sha1
+		  方法，因此无法正常建立链接。
+解决方案：
+	1.1、在project directory/.git/config文件中的ssh 后面添加下面这段代码
+		 ssh -oKexAlgorithms=+diffie-hellman-group1-sha1
+		 
+	1.2、在.ssh目录下面新建一个config文件并在config文件中添加以下代码
+		 Host xx.xx.x.xxx
+			KexAlgorithms +diffie-hellman-group1-sha1
