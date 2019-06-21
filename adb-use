@@ -1,0 +1,4 @@
+#查看内存使用
+adb shell top -m 5 -d 3 -t
+#导出bugreprot log
+adb bugreport
