@@ -1,0 +1,19 @@
+1、lib.h和dtsi的对应配置
+   1.1、lib.h
+   .power_setting_a =
+      {
+        {
+          .seq_type = CAMERA_POW_SEQ_GPIO,
+          .seq_val = CAMERA_GPIO_STANDBY,
+          .config_val = GPIO_OUT_LOW,
+          .delay = 1,
+        },
+      }，
+    1.2、dtsi
+    cam_vdig-supply = <&pmxx_l2>;
+		cam_vana-supply = <&pmxx_l17>;
+		cam_vio-supply = <&pmxx_l6>;
+		cam_vaf-supply = <&pmxx_l8>;
+    
+    gpios = <&msm_gpio 26 0>,
+  如果seq_type配置CAMERA_POW_SEQ_VREG，则dtsi中cam_vdig配置对应vreg，gpios中配置gpio控制开关。
