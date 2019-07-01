@@ -22,3 +22,5 @@
 ./out/target/product/marino/obj/KERNEL_OBJ/scripts/dtc/dtc -I dtb -O dts 
 
 ./out/target/product/marino/obj/KERNEL_OBJ/arch/arm64/boot/dts/mediatek/marino.dtb > ~/f.dts
+
+3、从Android P开始，bootimage 再分bootimage和dtboimage，具体信息还需考证。
