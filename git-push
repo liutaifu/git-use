@@ -1,0 +1,27 @@
+xx$ git push origin HEAD:refs/for/SLB786
+Counting objects: 39, done.
+Delta compression using up to 20 threads.
+Compressing objects: 100% (31/31), done.
+Writing objects: 100% (39/39), 3.65 KiB | 0 bytes/s, done.
+Total 39 (delta 33), reused 9 (delta 8)
+remote: Resolving deltas: 100% (33/33)
+remote: Processing changes: refs: 1, done
+remote: ERROR: commit aebbfec: missing Change-Id in message footer
+remote:
+remote: Hint: to automatically insert a Change-Id, install the hook:
+remote:   gitdir=$(git rev-parse --git-dir); scp -p -P 29418 liutaifu@192.168.0.240:hooks/commit-msg ${gitdir}/hooks/
+remote: and then amend the commit:
+remote:   git commit --amend
+remote:
+
+错误原因：commit aebbfec: missing Change-Id in message footer
+
+通过git log 查找commit aebbfec，发现merge时没有Change-Id。
+
+1. 
+   git reset --hard 回退提交
+   git reset --soft aebbfec 前一笔提交
+   git status 查看状态
+   git commit -s  添加commit，保存退出
+   git pull 更新到最新，
+   重新提交
