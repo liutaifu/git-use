@@ -95,7 +95,7 @@ seek=blocks表示从输出文件开头跳过 blocks 个块后再开始复制。(
 		14746(pages)*4(kb) = 58984KB < 60256kB
 		
 		eaurora.snapcam 进程oom_adj=0,对应的阈值是15360，换算内存61440kB，cache 60256kB 低于阈值，
-		触发lowmemorykiller机制。对比16+2的机器，cache limit 比8+1的要低，所以还未触发lowmemorykiller。
+		触发lowmemorykiller机制。对比16+2的机器，cache limit 比8+1的要低；8+1是32位，16+2是64位。
 
 
 内存分析命令
