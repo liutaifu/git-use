@@ -10,3 +10,18 @@ adb shell procrank 里面的值，Pss 的 Total 就是所理解的所有app占�
 Linux的PSS标准 （Proportional Set Size)——实际物理内存
 
 adb shell dumpsys procstats --hours 3  去输出最后3小时收集的内存信息。这些数据和之前图形界面的数据是相同的。
+
+dd工具介绍
+dd if=/dev/zero of=/data/swapfile bs=1024 count=65536
+65536+0 records in
+65536+0 records out
+这样就创建一个有连续空间的交换文件，大小为60M左右，关于dd命令做简单的讲述:
+if＝输入文件，或者设备名称。
+of＝输出文件或者设备名称。
+ibs=bytes 表示一次读入bytes 个字节(即一个块大小为 bytes 个字节)。
+obs=bytes 表示一次写bytes 个字节(即一个块大小为 bytes 个字节)。
+bs＝bytes，同时设置读写块的大小，以bytes为单位，此参数可代替 ibs 和 obs。
+count=blocks 仅拷贝blocks个块。
+skip=blocks 表示从输入文件开头跳过 blocks 个块后再开始复制。
+seek=blocks表示从输出文件开头跳过 blocks 个块后再开始复制。(通常只有当输出文件是磁盘或磁带时才有效)
+这里的输入设备/dev/zero代表一个输出永远为0的设备文件，使用它作输入可以得到全为空的文件。
