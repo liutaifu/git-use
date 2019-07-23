@@ -25,3 +25,85 @@ count=blocks 仅拷贝blocks个块。
 skip=blocks 表示从输入文件开头跳过 blocks 个块后再开始复制。
 seek=blocks表示从输出文件开头跳过 blocks 个块后再开始复制。(通常只有当输出文件是磁盘或磁带时才有效)
 这里的输入设备/dev/zero代表一个输出永远为0的设备文件，使用它作输入可以得到全为空的文件。
+
+一、Android六大进程
+	1.前台进程(foreground)
+	2.可见进程(visible)
+	3.次要服务(secondary server)
+	4.后台进程(hidden)
+	5.内容供应节点(content provider)
+	6.空进程(empty)
+	
+二、oom_adj和oom_score
+	Low Memorry Killer的机制主要是通过进程的oom_adj和oom_score来进行内存的处理的
+	1. 每一个进程都有一个oom_adj值，取值范围[-17,15]。
+ 	2. 每一个进程都有一个oom_scroe值，它是根据oom_adj计算出一个值，分数越大越容易被杀死。
+ 	3. 内存紧张时，LMK基于oom_adj和oom_score值来决定是否要回收一个进程。
+ 	4. oom_adj值越小，越不容易被杀死，其中，-17时 oom_score为0表示不会被杀死。
+ 	5. 查看oom_adj和oom_score方法：
+	cat proc/pid/oom_adj
+	cat proc/pid/oom_score
+	
+	六大进程分别对应的oom_adj值
+	FOREGROUND_APP		0
+	VISIBLE_APP			1
+	SECONDARY_SERVER	2
+	HIDDEN_APP			7
+	CONTENT_PROVIDER	14
+	EMPTY_APP			15
+
+
+三、LMK的进程回收策略
+		Low Memory Killer Driver在用户空间指定了一组内存临界值及与之一一对应的一组oom_adj值，
+		当系统剩余内存位于内存临界值中的一个范围内时，如果一个进程的oom_adj值大于或等于这个
+		临界值对应的oom_adj值就会进入被杀掉队列。
+		
+	如下一个参考数据	
+		oom_adj			阈值(页面)
+		0				12288
+		1				15360
+		2				18432
+		7				21504
+		14				124576
+		15				30720
+		这里其实算出来的是一个阈值，阈值的意思是当手机内存小于阈值的情况下，内存就会开始逐级回
+		收该类型的内存。阈值中数值的单位是内存中的页面数量，一般情况下一个页面是4KB。比如说15
+		级别是 30720 * 4K = 123 M，即当手机内存小于123M的时候开始回收15级别的应用的内存，即选择
+		一个oom_adj值最大并且消耗内存最多的进程来回收.
+		
+		8+1
+		msm8953_32:/ # ls /sys/module/lowmemorykiller/parameters/minfree
+		/sys/module/lowmemorykiller/parameters/minfree
+		msm8953_32:/ # cat /sys/module/lowmemorykiller/parameters/minfree
+		15360,19200,23040,26880,34415,43737
+		16+2
+		msm8953_64:/ # cat  /sys/module/lowmemorykiller/parameters/minfree
+		14746,18432,22118,25805,40000,55000
+		
+		[ 7523.122671] lowmemorykiller: Killing 'eaurora.snapcam' (4417), adj 0,
+		[ 7523.122671]    to free 37448kB on behalf of 'kswapd0' (161) because
+		[ 7523.122671]    cache 60256kB is below limit 61440kB for oom_score_adj 0
+		[ 7523.122671]    Free memory is 23076kB above reserved.
+		[ 7523.122671]    Free CMA is 210728kB
+		[ 7523.122671]    Total reserve is 23200kB
+		[ 7523.122671]    Total free pages is 242236kB
+		[ 7523.122671]    Total file cache is 64908kB
+		[ 7523.122671]    Total zcache is 0kB
+		[ 7523.122671]    GFP mask is 0xd0
+		
+		15360(pages)*4(kb) = 61440kB
+		14746(pages)*4(kb) = 58984KB < 60256kB
+		
+		eaurora.snapcam 进程oom_adj=0,对应的阈值是15360，换算内存61440kB，cache 60256kB 低于阈值，
+		触发lowmemorykiller机制。对比16+2的机器，cache limit 比8+1的要低，所以还未触发lowmemorykiller。
+
+
+内存分析命令
+	1. free -h
+		msm8953_32:/ # free -m
+						total        used        free      shared     buffers
+		Mem:              855         679         175           1           6
+		-/+ buffers/cache:            672         182
+		Swap:             511          58         453
+		
+		APP实际可以使用的内存是 free(175) + buffers(6) = cache free(182)
