@@ -24,3 +24,10 @@
 ./out/target/product/marino/obj/KERNEL_OBJ/arch/arm64/boot/dts/mediatek/marino.dtb > ~/f.dts
 
 3、从Android P开始，bootimage 再分bootimage和dtboimage，具体信息还需考证。
+
+4、验证GPIO是否被占用
+   GPIO资源，AP端经常需要和ADSP部分竞争，且由于ADSP优先级高于AP，一旦ADSP占用，AP端就无法再次申请。
+   4.1、首先判断gpio是否能在AP端操作
+        一种：通过调用通用GPIO函数，申请，设置value，打印log是否生效。
+	
+	
