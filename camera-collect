@@ -29,5 +29,37 @@
    GPIO资源，AP端经常需要和ADSP部分竞争，且由于ADSP优先级高于AP，一旦ADSP占用，AP端就无法再次申请。
    4.1、首先判断gpio是否能在AP端操作
         一种：通过调用通用GPIO函数，申请，设置value，打印log是否生效。
+	第二种：驱动中不做操作，使用adb命令操作
+	   adb root
+   	   adb shell
+           cd  /sys/class/gpio/
+           echo 21 > export
+           cd gpio21/
+           echo out > direction
+           echo 1 > value
+           cat direction
+           cat value
+	根据cat的值和echo值是否相同，确认gpio是否被占用。
 	
-	
+    4.2、如果AP端无法控制GPIO，怎么确认是否是ADSP占用，简单粗暴的方式：
+    	   adb root
+   	   adb remount
+           adb shell mount -o remount,rw /firmware 
+           adb shell
+           rm  /firmware/image/adsp*
+           reboot
+	重启之后继续使用4.1中第二种方式验证GPIO是否可控。
+
+    4.3、使用命令获取GPIO寄存器值
+    	   adb root
+   	   adb shell
+   	   root@msm8937_64:/ # /system/bin/r 0x01015000
+   	   01015000: 000002c4
+	具体需要查询对应gpio的寄存器值
+    4.4、如果修改了ADSP后，GPIO还是被占用，可以关系vendor目录下sensor配置文件
+    	   adb root
+   	   adb remount
+   	   adb shell rm /system/etc/sensor_def_qcomdev.conf
+   	   adb shell rm /data/misc/sensors/sns.reg
+    	   adb shell rm /persist/sensors/sns.reg
+   	   adb reboot
