@@ -63,3 +63,7 @@
    	   adb shell rm /data/misc/sensors/sns.reg
     	   adb shell rm /persist/sensors/sns.reg
    	   adb reboot
+
+
+  5. ZSL功能
+     5.1 骁龙相机开发者模式，ZSL有三个选项，off，APP-ZSL，HAL-ZSL，三种情况不同的配置需要梳理一下
