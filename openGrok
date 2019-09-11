@@ -1,0 +1,76 @@
+openGrok的安装配置
+  一、准备
+    1.jdk1.8以上
+    2.tomcat8.0以上
+    3.catags 首先卸载exuberant-ctags 已不再维护且对新版本opengrok支持不好
+    
+    sudo apt-get remove --purge exuberant-ctags
+    sudo apt-get remove tags
+    sudo apt-get autoremove
+    sudo apt-get install autoconf pkg-config automake
+    
+    git clone https://github.com/universal-ctags/ctags.git
+    cd ctags
+    ./autogen.sh
+    ./configure
+    make 
+    sudo make install
+    
+ 二、安装
+    1.git clone https://github.com/oracle/opengrok/releases
+    2.解压opengork，将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat，访问IP:8080/source即可。
+    3.若要从根目录IP:8080/访问项目的话，需要在tomcat的server.xml配置文件中HOST配置项，加入如下信息：
+    <Context docBase="/var/lib/tomcat8/webapps/source" path="" debug="" reloadable="true"
+    antiResourceLocking="false" antiJARLocking="false"/>
+    4.至此opengork安装完成，可以使用。
+    
+ 三、配置
+    1.生成项目索引
+      1.1 首先在~/目录下创建新的目录
+      --
+      | --| workspace
+        |   --|src      需要被索引的项目源码路径
+        |   --|link     软链接路径将src目录的源码工程链接到此目录
+        |   --|data     索引文件存放路径，将生成的索引文件指向此目录
+        
+      执行如下命令(linux)：
+        sudo java -jar ~/download/opengrok-1.2.8/lib/opengrok.jar \
+                -P -S -v -s ~/workspace/link -d ~/workspace/data/ \
+                -l *.java -l *.c -l *.h -l *.cpp -U http://localhost:8080 \
+                -W ~/workspace/configuration.xml
+                
+       执行如下命令(win)：
+       java -Xmx524m -jar D:\workspace\opengrok-1.2.8\lib\opengrok.jar -c D:\tools\ctags-2019-05-18\ctags.exe \
+              -P -S -v -s D:\link\xx -d D:\data -l *.c -l *.h -l *.cpp -l *.aidl -l *.cc -U http://localhost:8080 \
+                -W ~/workspace/configuration.xml
+                
+                
+        //每次新建或者更新索引都需要执行如上命令， 然后刷新网页即可，不需重启tomcat
+        // -s ~/workspace/link 可以直接使用源码目录，但为了扩展更好，推荐使用软链接
+        // -U http://localhost:8080 指向项目访问链接
+        
+        修改/tomcat/wewebapps/source/WEB-INF/web.xml中的CONFIGURATION文件地址路径为实际configuration.xml路径，需要重启tomcat
+     
+     
+     1.2 自动扫描项目路径创建软链接，并更新索引，脚本如下，此脚本不使用于大型项目，
+         切若是以脚本形式启动任务，需要先移除项目源码link的软链接，才可以移除源码。
+         
+         
+         
+         #!/bin/bash
+         TAR_DIR=/workspace/src
+         LINK_DIR=/workspace/link
+         
+         cd $LINK_DIR
+         for DIR in `ls $TAR_DIR`
+         do
+            if[ -L $LINK_DIR/$DIR ]
+            then
+            echo $DIR"is exist, no create."
+            else
+              ln -bs $TAR_DIR"/"$DIR $LINK_DIR"/"DIR
+              echo "$DIR create successful"
+            fi
+         echo $TAR_DIR"/"$DIR
+         echo $LINK_DIR"/"$DIR
+         done
