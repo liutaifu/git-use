@@ -107,3 +107,37 @@ seek=blocks表示从输出文件开头跳过 blocks 个块后再开始复制。(
 		Swap:             511          58         453
 		
 		APP实际可以使用的内存是 free(175) + buffers(6) = cache free(182)
+
+
+
+09-26 15:24:04.771 E/SnapCam_CaptureModule(10117): cancel longshot: free=20574208 cached=198778880 threshold=226492416
+
+
+CaptureModule.java
+212      private static final int LONGSHOT_CANCEL_THRESHOLD = 40 * 1024 * 1024;
+
+4390          if (SECONDARY_SERVER_MEM == 0) {
+4391              ActivityManager am = (ActivityManager) mActivity.getSystemService(
+4392                      Context.ACTIVITY_SERVICE);
+4393              ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+4394              am.getMemoryInfo(memInfo);
+4395              SECONDARY_SERVER_MEM = memInfo.secondaryServerThreshold;
+4396          }
+4398          long totalMemory = Runtime.getRuntime().totalMemory();
+4399          long maxMemory = Runtime.getRuntime().maxMemory();
+4400          long remainMemory = maxMemory - totalMemory;
+4401  
+4402          MemInfoReader reader = new MemInfoReader();
+4403          reader.readMemInfo();
+4404          long[] info = reader.getRawInfo();
+4405          long availMem = (info[Debug.MEMINFO_FREE] + info[Debug.MEMINFO_CACHED]) * 1024;
+4406  
+4407          if (availMem <= SECONDARY_SERVER_MEM || remainMemory <= LONGSHOT_CANCEL_THRESHOLD) {
+4408              Log.e(TAG, "cancel longshot: free=" + info[Debug.MEMINFO_FREE] * 1024
+4409                      + " cached=" + info[Debug.MEMINFO_CACHED] * 1024
+4410                      + " threshold=" + SECONDARY_SERVER_MEM);
+4411              RotateTextToast.makeText(mActivity, R.string.msg_cancel_longshot_for_limited_memory,
+4412                      Toast.LENGTH_SHORT).show();
+4413              return true;
+4414          }
+
