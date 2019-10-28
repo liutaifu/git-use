@@ -141,3 +141,44 @@ CaptureModule.java
 4413              return true;
 4414          }
 
+
+Android内存整理
+一、RAM（random access memory）随机存取存储器，及内存。
+
+二、一般软件内存分配时会涉及到以下几个区域：
+1. 寄存器(Registers)
+2. 栈(stack)
+3. 堆(heap)
+4. 静态域(static field)
+5. 常量池(constant pool)
+6. 非RAM存储
+
+三、内存优化是从APPS角度入手，避免因不正确使用内存 & 缺乏管理，从而出现 内存泄露（ML）、内存溢出（OOM）、内存空间占用过
+大等问题，最终导致应用程序崩溃（Crash）。
+1.简介 
+	内存管理= 内存分配 + 内存回收/释放 
+	内存管理的对象= 进程、对象、变量 
+	管理层次= Application frameworks、Dalvik VM、linux 
+2.系统分配给每个APPS的内存大小是有限的,不能无线申请 
+	内存泄漏 申请分配内存A，B地址不是连续，A，B内存块之间的区域既是内存泄漏，内存已使用完毕，但未即使回收
+	内存溢出 只申请分配内存，不释放，导致内存超出APP最大使用内存量，溢出 
+	内存抖动 内存使用不足时，短时间内即申请大量内存，又导致GC回收内存机制触发的现象 
+四、常见的内存内存问题
+1. 内存泄漏
+2. 内存溢出
+3. 内存抖动
+4.图片bitmap
+五、APPS内存优化分析工具
+1.MAT(Memory Analysis Tools) eclipse 
+2.Heap Viewer
+3.Allocation Tracker
+4.Android Studio (Memory Monitor)
+5. LeakCanary https://www.liaohuqiu.net/cn/posts/leak-canary/  推荐使用
+
+应用中添加如下代码，发生内存泄漏时，即会在通知栏看到通知信息。
+public class ExampleApplication extends Application {
+  @Override public void onCreate() {
+    super.onCreate();
+    LeakCanary.install(this);
+  }
+}
