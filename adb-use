@@ -2,3 +2,18 @@
 adb shell top -m 5 -d 3 -t
 #导出bugreprot log
 adb bugreport
+
+windows 配置adb
+ 1. 从2017年开始，Google 开始在 Android Studio 官方网站上单独提供 platform-tools 下载。下载地址：
+    https://developer.android.com/studio/releases/platform-tools.html
+ 2. 解压platform-tools到指定目录，
+ 3. 将解压后的platform-tools路径，配置到环境变量中，即可，参考 https://sspai.com/post/40471
+ 4. cmd打开命令行验证adb查看版本
+ 5. windows设备识别设备，ubuntu子系统不识别设备，是因为windows adb版本和ubuntu adb版本不相同，需要修改其中一个。
+ubuntu 配置adb
+ 1.在终端输入一下命令
+   sudo gedit ~/.bashrc
+ 2.在弹出的文件中输入以下配置
+   export PATH=$PATH:/home/username/SDK_path/platform-tools
+ 3. source ~/.bashrc
+ 4. 验证adb查看版本
