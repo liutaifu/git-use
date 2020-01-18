@@ -31,3 +31,10 @@ git commit 时使用模板提交
 先修改模板template.txt，再执行如下一行
 git config --global commit.template ~/template.txt
 后执行 git commit; git push xxx
+
+2.merge master
+  先把修改提交
+  然后切到master分支
+  git merge 提交分支
+  git push origin master
+
