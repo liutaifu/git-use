@@ -17,3 +17,11 @@ ubuntu 配置adb
    export PATH=$PATH:/home/username/SDK_path/platform-tools
  3. source ~/.bashrc
  4. 验证adb查看版本
+
+adb模拟按键
+adb shell input keyevent x 
+KEYCODE_CAMERA	拍照键	27
+KEYCODE_FOCUS	拍照对焦键	80
+KEYCODE_POWER	电源键	26
+
+https://www.cnblogs.com/chengchengla1990/p/4515108.html
