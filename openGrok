@@ -17,8 +17,8 @@ openGrok的安装配置
     sudo make install
     
  二、安装
-    1.git clone https://github.com/oracle/opengrok/releases
-    2.解压opengork，将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat，访问IP:8080/source即可。
+    1.git clone https://github.com/oracle/opengrok/releases                                               克隆不了
+    2.解压opengork，将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat，访问IP:8080/source即可。     
     3.若要从根目录IP:8080/访问项目的话，需要在tomcat的server.xml配置文件中HOST配置项，加入如下信息：
     <Context docBase="/var/lib/tomcat8/webapps/source" path="" debug="" reloadable="true"
     antiResourceLocking="false" antiJARLocking="false"/>
@@ -74,3 +74,23 @@ openGrok的安装配置
          echo $TAR_DIR"/"$DIR
          echo $LINK_DIR"/"$DIR
          done
+         done
+         done
+         done
+         
+2020/09/19 记录一下mac系统搭建opengrok的流程
+
+  1. 首先参考网址 http://oddboy.cn/2019/Opengrok安装-on-mac/
+  2. 在执行1网页中生成索引时一直报错，因不知原因查找几天未果
+  3. 参考opengrok官网https://github.com/oracle/opengrok/wiki/How-to-setup-OpenGrok
+  4. 通过Step3 Indexing中的说明的两个方式确认我的创建索引的命令，
+    java -jar /opengrok/dist/lib/opengrok.jar -h
+    opengrok-indexer -a /opengrok/dist/lib/opengrok.jar -- -h
+  5. 1网址中生成索引的命令应该修改为
+    java \
+    -Djava.util.logging.config.file=/var/opengrok/etc/logging.properties \
+    -jar /var/opengrok/dist/lib/opengrok.jar \
+    -c /usr/local/bin/ctags \
+    -s /var/opengrok/src -d /var/opengrok/data -H -P -S -G \
+    -W /var/opengrok/etc/configuration.xml -U http://localhost:8080/source
+  6. 至此opengrok可以正常打开代码
