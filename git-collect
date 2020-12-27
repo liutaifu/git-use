@@ -33,8 +33,9 @@ git config --global commit.template ~/template.txt
 后执行 git commit; git push xxx
 
 2.merge master
-  先把修改提交
-  然后切到master分支
-  git merge 提交分支
-  git push origin master
+   2.1 先创建一个分支
+   2.2 在新分支先把修改提交，git add ; git commit -m ""; 不执行git push
+   2.3 然后切到master分支
+   2.4 git merge 提交分支
+   2.5 git push origin master
 
