@@ -39,3 +39,6 @@ git config --global commit.template ~/template.txt
    2.4 git merge 提交分支
    2.5 git push origin master
 
+github.com 无法访问页面
+1.访问http://www.github.com.ipaddress.com/, 查看GitHub的ip地址
+2.在hosts文件中增加一行(注意,前面的是上面查到的ip地址,不要照着我的写,要改成查到的)
