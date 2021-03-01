@@ -94,3 +94,6 @@ openGrok的安装配置
     -s /var/opengrok/src -d /var/opengrok/data -H -P -S -G \
     -W /var/opengrok/etc/configuration.xml -U http://localhost:8080/source
   6. 至此opengrok可以正常打开代码
+
+1. 打开tomcat
+2. 访问http://localhost:8080/source
