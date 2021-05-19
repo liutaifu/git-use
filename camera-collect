@@ -67,3 +67,209 @@
 
   5. ZSL功能
      5.1 骁龙相机开发者模式，ZSL有三个选项，off，APP-ZSL，HAL-ZSL，三种情况不同的配置需要梳理一下
+     
+  6. camera 名词整理
+CC, color conversion,色彩转换
+CC, color correction,色彩矫正
+CE, chroma enhancement,色度增强
+SNR,signal-to-noise ratio,信噪比
+SNR, skin noise reduce,肤色降噪
+STD, standard deviation,标准差
+OIS, optical image stabilization 光学稳像 
+PDAF,phase detection auto focus,相位对焦
+CPP: camera post processor,摄像头后处理
+ZSL: zero shutter log,零延时拍照
+ABF: adaptive bayer filter，自适应bayer滤波器
+CCM: color correction matrix
+ASF: adaptive spatial filter,自适应空间滤波器
+ACE,advanced chroma enhancement,高级色度增强
+AEC, auto exposure control,自动曝光控制
+AFD,automatic flicker detection,频闪自动检测
+PLD,Physical Layer Driver,物理层驱动
+BPC，坏点矫正
+BCC,坏点对矫正
+CFA,color fillter array色彩滤镜阵列
+BAF,bayer AF
+LA,luma adaptation,亮度调整
+DBPC,动态坏点校正
+DBCC,动态坏点簇校正
+ABCC,assisted bad cluster correction,辅助坏点族校正
+TM:目标模块
+IAF:instant auto focus,即时AF
+DDM, dense depth map
+LCA,logic cell array,逻辑单元阵列
+WNR,wavelet noise reduction,小波降噪
+LUT,lookup table查找表
+MCC, macbenth color checker,macbeth麦克白色卡
+ND,中兴密度
+UI,用户界面
+CCT,correlated color temperature,关联色温
+SWG,simple gray world,简单灰世界
+ROI，Region of interest,感兴趣区域
+SP,软件产品
+BSP,开发包
+AFR,auto FPS rate,自动帧率
+MCE,memory color enhancement,记忆色增强
+SCE,skin color enhancement,肤色增强
+CT,Color Temperature,色温
+IQ, image quality,图像品质
+IS, image stabilization,图像稳定
+HAF,hybrid auto focus,混合对焦
+CAF,continuous auto focus,自动对焦
+CAF(contrast AF)，持续AF
+TAF,触控对焦
+GM,golden 模组
+RDI, raw dump interface,原始数据转存端口
+QTI, Qualcomm Technologies Inc
+DCC, defocus conversion coefficient
+SLR, single-lens-reflex,单反
+PD,phase detection,相位检测
+PD,phase difference,相位差
+BPP, bits per pixel
+DAC,digital to analog converter
+AFR,auto frame rate
+AWB, automatic white balance,自动白平衡
+CAC,color aliasing correction
+CAC,color artifact correction
+CAC, chromatrix aberration correction
+GIC, green imbalannce correction
+DPC, defective pixel correction
+LTM, local tone mapping,局部色调映射
+GTM,全局色调映射
+VFE, Video front end,视觉前端
+APL, average picture level
+MLC,misleading color,误导性颜色。
+DCIAF,dual camera instant auto focus
+VPE,Video preprocessing 视频预处理
+SAD,Sum of Absolute Difference
+SADR, SAD with respect
+HPF, High Pass Filter
+FOV, field of view,视场角
+RNR, radial noise Reduction
+RMS,root mean squared
+TOF(time-of-flight), 激光对焦
+DCIF(duall camera instant AF),
+MVAVG,moving average
+HVX, hexagon vector eXtension
+lc, line counter
+FIR, finite impulse response,有限脉冲响应
+IIR, infinite impulse response,无限脉冲响应
+FIR, finite impulse response digital filter
+
+ADRC, automatic dynamic range compression,自动动态范围压缩
+AOST, advanced optional software technologies,高级可选软件技术
+BLSS, black level subtraction and scaling,黑电平减法和压缩
+DRC, dynamic range compression,动态范围压缩
+HVX, hexagon vector extension,6角延伸
+TNR, temporal noise reduction,时域降噪
+IR, infrared filter,红外线过滤
+INTG, integration time,
+AFS, auto focus stats
+CS, chroma suppression
+LCE, local contrast enhancement
+PDPC, phase detection pixel correction
+GIC, green imbalance correction
+LNR, level-based noise reducton
+MCTL, media control
+zzHDR, zigzag HDR
+pvl, preferred vendor list,优选供应商列表。
+FD, face detection
+FIR, finite impulse response
+HVX, hexgon vector extension
+HDR, high dynamic range,高动态范围
+IIR, infinite impulse response
+LSB, least significant bit
+MIPI, mobile industry processor interface
+MSB, most significant bit
+AIG, adaptive input gain
+LC,line count
+UI,user interface
+SGW, simple gray world
+CE, chromatrix enhancement
+HAL,hardware abstraction layer,硬件抽象层
+QCDB, global components database,全局组件数据库
+IRQ, interrupt request,中断请求
+QRD, qualcomm reference desigh,高通参考设计
+SOF,start of frame,帧开始
+NVM, non-volatile memory
+ASD,auto scene detection,自动场景侦测
+SDK, software developers kit
+MWB, manual white balance
+MBDRC, multiband dynamic range control
+KPI, key performance indicator
+FB, FrameBuffer
+EDID, extended display identification data
+MDP, mobile display processing
+GPU, graphics processing unit
+SDR, satic dynamic range
+WCG, wide color gamut
+HFR, high frame rate
+LLV, low light vision
+LLP(snapdragon), low light photo
+UDCF, universal dual camera framework
+EIS, electronic image stabilization
+DIS, digital image stabilization
+EXIF, exchangeable image file
+HJR, hand jitter reduction
+singel frame HJR，在弱光条件下增强噪声性能
+LED, light emitting diode
+UBWC, universal bandwidth compression
+CAMIF, camera interface hardware
+CSID, camera serial interface decoder
+DOF, depth of field,景深
+ISPIF, isp interface
+NVM, nonvolative memory
+RDI, raw data interface
+PDLIB, phase detection library
+CIS, cmos image sensor
+DPC, defect pixel correction
+pip, picture in picture,画中画
+ISP, image signal processor
+QFIL, Qualcomm flash image loader
+ISO, international standards organization
+SOF, start of frame,帧开始
+BL, black level
+OECF, opto-electronic conversion function
+OEM, original equipment manufacturer
+CCI, camera control interface, 摄像头控制接口
+ICL, imaging codec layer,图像编解码层
+CDF,Cumulative Distribution Function
+LSC,lens shading correction镜头阴影矫正
+DPCM,Differential Pulse Code Modulation
+IS, image stabilization,图像稳定
+GCDB,global components database,全局组件数据库
+IRQ,interrupt request,中断请求
+QRD,qualcomm reference design,高通参考设计。
+DT, data type
+VC,Virtual Channel
+CID,Channel ID
+MTP, modem test platform device
+HWI, hardWare interface
+CDT, configuration data table
+GPIO, general purpose input-output
+DTC, device tree compile
+MCT, media controller
+TDN, temporal wavelet denoise
+VCM, voice coil motor,音圈马达
+CDS: color down sample. 它会跳过UV通道中两个像素之间的一个像素，这绝对会影响颜色。 我们强烈建议客户慎重使用它。 只建议在极端黑暗的环境下使用，以消除由于饱和导致的噪音。 所以请使用自动模式并通过微调isp头中的触发条件来触发它。
+AGW,advance gray world
+DFS,dynamic frame skip
+SVHDR:Staggered video HDR
+RTB,Real-Time Bokeh
+EV, exposure value
+NA, not applicable
+SOF,start of frame,帧开始
+CTS,Compatibility test suite
+OMX,openMAX
+UDCF, universal dual camera framework
+FOVC,Field-of-view-control
+OECF,Opto-Electronic Conversion Function
+PDPC,Phase Detection Pixel Correction
+ 
+VCM
+SAC, smart actuator control
+LSC, linear slope control
+POR, power on resset
+OCP, over current protection
+UVLO, under voltage lockout
+SRC, slew rate control
