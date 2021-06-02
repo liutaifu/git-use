@@ -1,4 +1,15 @@
 工欲善其事，必先利其器
+工具整理
+1. fox
+2. 高速相机
+3. trace工具
+4. 内存分析工具
+5. kernellog转logcatlog工具，时间对齐
+6. yuv工具，raw工具
+7. nopad++ 插件工具
+8. beyondcompare
+9. 脚本命令行
+
 一、开始阶段
 1. camera bringup
      camera,af/pdaf,eeprom,兼容二供三供；多camera驱动调试需要晓龙相机配置“switchid切换相机”的功能，用于验证相机调试。
@@ -52,3 +63,19 @@
     兼容相同ic和vendor的方案就是在eeprom.xml中新增标志位，在软件上进行解析并作为兼容的判断条件
 21. gerrit固定hash操作
     将仓库新提交changeId 合入xml中
+    
+1. cts google 打补丁导致cts测试fail
+2. camera功能场景电流测试数据分析
+3. 关闭相机权限导致打开相机失败
+4. mtk平台camera流程整理
+5. mtk平台修改cpu调度
+6. systrace 高通平台/mtk平台差异，及分析技巧
+7. 相机启动时间拆分：硬启动、冷启动、热启动、前后摄切换
+8. 相机老化过程中camera block i2c报错/crash
+9. fps设置导致预览拍照过爆    预览帧率10fps，拍照30fps
+
+
+
+
+
+
