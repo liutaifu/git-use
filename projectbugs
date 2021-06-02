@@ -1,0 +1,54 @@
+工欲善其事，必先利其器
+一、开始阶段
+1. camera bringup
+     camera,af/pdaf,eeprom,兼容二供三供；多camera驱动调试需要晓龙相机配置“switchid切换相机”的功能，用于验证相机调试。
+     注意dtsi中avdd，dvdd，dovdd；csi，mipi复用配置。
+     注意驱动文件命名规范
+     注意eeprom group读取顺序
+     注意eeprom 有效数据校验和确认（awb/lsc/pdaf）
+     注意FOV，焦距信息更新
+     注意size，fps适配
+     注意remosaic功能
+2. 兼容相同IC和供应商的方案，eeprom部分寄存器可以区分。
+     2.1 实现原理 再加载sensor驱动probe之前添加调用eeprom probe逻辑，根据eeprom中特定寄存器区分相同模组厂，相同ic的模组兼容
+     2.2 和app传递数据的方式：属性还是tag的方案，属性可以不加载camera获取，tag必须加载camera才能获取
+3. 调试过程中log设置
+     3.1 camxoverridessettings.txt中变量赋值的位置，注意屏蔽功能调试添加的无效log
+     3.2 注意高通平台persist的使用
+4. dump数据的设置
+     4.1 dump preview/snapshot/raw，分布确认各阶段数据，定位异常位置
+5. flash校准方案移植， 兼容客户flash校准方案，工模获取闪光灯结果方案兼容
+    flash校准原理：
+6. 双摄标定方案，4250平台不支持同时打开13m，8m的设置，采用客户RTB模式获取双摄数据
+    不支持同时打开13M，8M的原因是isp只要2个可以同时使用，13M会占用2个isp。
+7. 项目私有化配置，注意客户命名规范
+8. ftm功能适配：AT命令定义，功能实现，防呆处理，产线电流阈值设置
+9. 工模生产id防呆方案，涉及权限修改，需要符合客户定义规范
+10. 工模硬件信息获取方案
+11. mipi jitter，poweron/down sequence
+12. 硬件需求修改手电筒和补光灯电流
+13. 4250平台数据的传输过程，sensor-tfe(lsc，blc)-ope, sensor（mipi）-> isp
+14. feature 需求分析和解决
+15. 功耗测试方法和分析技巧：测试工具使用，power tool
+    feature工作时camera电流拆解
+    算法拆解：
+      1. 测试待机电流
+      2. 测试特定场景预览电流，虚化算法，需要增加白墙背景预览电流
+      3. 测试特定场景拍照电流
+      4. 针对有明显差异的情况，根据trace和log确认算法流程是否一致
+     预设环境：
+      相机功能：cabc功能，音量最小，排除干扰，亮度可以用亮度计确认，没有就选择最低亮度
+16. gms问题
+    CTS/ITS/VTS/GMS
+17. monkey/老化问题分析定位 ：内存存储满导致apk异常停止，分析log中发现和op.apsservice有关，
+18. 内存分析，camera常用场景内存使用分析，抓取内存的方法
+    分析内存工具  dumpsys meminfo  cat proc/meminfo  top
+    统计内存的有效数据
+19. 产线反馈问题分析：
+  混料导致后主摄预览黑屏：eeprom.xml中新增moduleid信息，eeprom读取模组失败导致probe失败，这个是项目特殊需求导致。
+  前摄部分模组预览偏绿： eeprom调试group2偏移计算错误，且烧录失败模组flag未复位0，规避方案，group倒序读取，
+  插usb后主摄打开闪光灯拍照右侧有黑边：主闪光灯持续时间比不插usb少了11ms，分析和插入后flash的模式设置有关。
+20. xml可以根据功能需要新增标志位变量，用于功能区分。
+    兼容相同ic和vendor的方案就是在eeprom.xml中新增标志位，在软件上进行解析并作为兼容的判断条件
+21. gerrit固定hash操作
+    将仓库新提交changeId 合入xml中
