@@ -108,4 +108,5 @@ openGrok的安装配置
                 -P -S -v -s ~/workspace/link -d ~/workspace/data/ \
                 -l *.java -l *.c -l *.h -l *.cpp -U http://localhost:8080 \
                 -W ~/workspace/configuration.xml
-    等待验证
+    验证可以打开代码
+  6. pass
