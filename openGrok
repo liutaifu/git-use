@@ -1,8 +1,11 @@
 openGrok的安装配置
   一、准备
-    1.jdk1.8以上
-    2.tomcat8.0以上
-    3.catags 首先卸载exuberant-ctags 已不再维护且对新版本opengrok支持不好
+    1.jdk1.8以上     apt install java/jre即可
+    2.tomcat8.0以上  
+       2.1 下载二进制发布文件
+       2.2 解压缩，添加权限启动tomcat
+       2.3 访问http://localhost:8080/ 验证tomcat是否正常起来
+    3.catags 首先卸载exuberant-ctags 已不再维护且对新版本opengrok支持不好  apt search/install ctags
     
     sudo apt-get remove --purge exuberant-ctags
     sudo apt-get remove tags
@@ -17,8 +20,8 @@ openGrok的安装配置
     sudo make install
     
  二、安装
-    1.git clone https://github.com/oracle/opengrok/releases                                               克隆不了
-    2.解压opengork，将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat，访问IP:8080/source即可。     
+    1.git clone https://github.com/oracle/opengrok/releases 克隆不了(直接去opengrok官网下载)
+    2.解压opengork，将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat后，访问IP:8080/source即可。     
     3.若要从根目录IP:8080/访问项目的话，需要在tomcat的server.xml配置文件中HOST配置项，加入如下信息：
     <Context docBase="/var/lib/tomcat8/webapps/source" path="" debug="" reloadable="true"
     antiResourceLocking="false" antiJARLocking="false"/>
@@ -51,12 +54,9 @@ openGrok的安装配置
         
         修改/tomcat/wewebapps/source/WEB-INF/web.xml中的CONFIGURATION文件地址路径为实际configuration.xml路径，需要重启tomcat
      
-     
      1.2 自动扫描项目路径创建软链接，并更新索引，脚本如下，此脚本不使用于大型项目，
          切若是以脚本形式启动任务，需要先移除项目源码link的软链接，才可以移除源码。
-         
-         
-         
+       
          #!/bin/bash
          TAR_DIR=/workspace/src
          LINK_DIR=/workspace/link
@@ -97,3 +97,15 @@ openGrok的安装配置
 
 1. 打开tomcat
 2. 访问http://localhost:8080/source
+
+2021/09/3 记录ubuntu系统搭建opengrok的流程
+  1. 更新ctags
+  2. 安装java
+  3. 安装tomcat  (先安装tomcat，后安装java无法访问localhost)，可以访问localhost
+  4. 安装opengrok  将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat后，访问IP:8080/source显示错误。
+  5. 执行如下命令(linux)：
+        sudo java -jar ~/download/opengrok-1.2.8/lib/opengrok.jar \
+                -P -S -v -s ~/workspace/link -d ~/workspace/data/ \
+                -l *.java -l *.c -l *.h -l *.cpp -U http://localhost:8080 \
+                -W ~/workspace/configuration.xml
+    等待验证
