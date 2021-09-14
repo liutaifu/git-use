@@ -10,3 +10,10 @@
 	1.2、在.ssh目录下面新建一个config文件并在config文件中添加以下代码
 		 Host xx.xx.x.xxx
 			KexAlgorithms +diffie-hellman-group1-sha1
+			
+			
+ltf@ubuntu:~/workspace/gitwork$ git clone https://github.com/liutaifu/codes.git 
+Cloning into 'codes'...
+error: RPC failed; curl 56 GnuTLS recv error (-54): Error in the pull function.
+fatal: the remote end hung up unexpectedly
+ltf@ubuntu:~/workspace/gitwork$ git clone git://github.com/liutaifu/codes.git 
