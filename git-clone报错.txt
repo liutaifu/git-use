@@ -12,8 +12,10 @@
 			KexAlgorithms +diffie-hellman-group1-sha1
 			
 			
-ltf@ubuntu:~/workspace/gitwork$ git clone https://github.com/liutaifu/codes.git 
-Cloning into 'codes'...
-error: RPC failed; curl 56 GnuTLS recv error (-54): Error in the pull function.
-fatal: the remote end hung up unexpectedly
+2. git clone报错
+   ltf@ubuntu:~/workspace/gitwork$ git clone https://github.com/liutaifu/codes.git 
+   Cloning into 'codes'...
+   error: RPC failed; curl 56 GnuTLS recv error (-54): Error in the pull function.
+   fatal: the remote end hung up unexpectedly
+解决方案
 ltf@ubuntu:~/workspace/gitwork$ git clone git://github.com/liutaifu/codes.git 
