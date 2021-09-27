@@ -1,3 +1,5 @@
+https://github.com/oracle/opengrok/wiki/How-to-setup-OpenGrok
+
 openGrok的安装配置
   一、准备
     1.jdk1.8以上     apt install java/jre即可
