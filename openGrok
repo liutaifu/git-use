@@ -104,9 +104,14 @@ openGrok的安装配置
   3. 安装tomcat  (先安装tomcat，后安装java无法访问localhost)，可以访问localhost
   4. 安装opengrok  将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat后，访问IP:8080/source显示错误。
   5. 执行如下命令(linux)：
-        sudo java -jar ~/download/opengrok-1.2.8/lib/opengrok.jar \
-                -P -S -v -s ~/workspace/link -d ~/workspace/data/ \
-                -l *.java -l *.c -l *.h -l *.cpp -U http://localhost:8080 \
-                -W ~/workspace/configuration.xml
+                                                           
+        sudo git clone https://github.com/githubtraining/hellogitworld.git 
+        sudo java \                                                                     
+            -jar /opt/opengrok/dist/lib/opengrok.jar \                                 
+            -c /usr/local/bin/ctags \                                                  
+            -s /opt/opengrok/src \   源码                                                    
+            -d /opt/opengrok/data -H -P -S -G \                                        
+            -W /opt/opengrok/etc/configuration.xml \                                   
+            -U http://localhost:8080/source
     验证可以打开代码
   6. pass
