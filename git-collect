@@ -42,3 +42,12 @@ git config --global commit.template ~/template.txt
 github.com 无法访问页面
 1.访问http://www.github.com.ipaddress.com/, 查看GitHub的ip地址
 2.在hosts文件中增加一行(注意,前面的是上面查到的ip地址,不要照着我的写,要改成查到的)
+
+
+1.git push <remote 名字> <本地分支的名字> : <远程库的名字>
+git push origin HEAD:refs/for/master(自己创建一个新分支，master是指向的分支)
+git push 肯定是推送
+origin : 是远程的库的名字
+HEAD: 是一个特别的指针，它是一个指向你正在工作的本地分支的指针，可以把它当做本地分支的别名，git这样就可以知道你工作在哪个分支
+refs/for :意义在于我们提交代码到服务器之后是需要经过code review 之后才能进行merge的
+refs/heads 不需要
