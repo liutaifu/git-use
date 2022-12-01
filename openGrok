@@ -52,9 +52,10 @@ openGrok的安装配置
           -jar /home/ltf/opengrok/dist/lib/opengrok.jar \
           -c /snap/bin/ctags \
           -s /home/ltf/opengrok/src \
-          -d /home/ltf/opengrok/data -H -P -S -G \
+          -d /home/ltf/opengrok/data -H -P -S -G  -i *.o -i *.rst -i *.sym  -i *.su -i *.bin -i *.d \
           -W /home/ltf/opengrok/etc/configuration.xml \
-          -U http://localhost:8080/source
+          -U http://localhost:8080/source \
+          --webappCtags on
    
       java -jar opengrok.jar --help  查看详细参数意义
                 
