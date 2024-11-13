@@ -24,7 +24,7 @@ openGrok的安装配置
  二、配置opengrok
     1.git clone https://github.com/oracle/opengrok/releases 克隆不了(直接去opengrok官网下载)
     2.解压opengork，
-      2.1 将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat后，访问IP:8080/source即可。  
+      2.1 将/lib/source.war复制到/var/lib/tomcat/webapps/中，启动tomcat后，访问IP:8080/source即可。  先拷贝，再访问，source.war会被解压
           sudo cp /xx/opengrok/dist/lib/source.war /xx/tomcat9/webapps/source.war 
       2.2 
           sudo mkdir /opt/opengrok/{src,data,dist,etc,log}                          
